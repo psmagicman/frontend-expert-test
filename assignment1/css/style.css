@@ -2,8 +2,36 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #eee;
 }
 #map {
-    height: 500px;
+    height: 700px;
     width: 100%;
+}
+.place {
+    overflow-y: scroll;
+    max-height: 700px;
+    box-sizing: border-box;
+}
+.place .box {
+    background-color: #fff;
+    width: 47%;
+    height: 280px;
+    display: inline-block;
+    margin: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 0px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+.place .img-wrapper {
+    width: 100%;
+    height: 150px;
+}
+.place .img-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+.place .box .description {
+    margin: 5px;
 }

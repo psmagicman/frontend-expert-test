@@ -44,6 +44,6 @@ searchApp.controller('PlaceListController',
                 position: {lat: value.coordinate[0], lng: value.coordinate[1]}
             })
         });
-    }
+    };
 
 });

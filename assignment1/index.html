@@ -9,20 +9,70 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxRNx6IsUplk23NIc03uvKdd5o4BdhS3g"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
     </head>
     <body ng-app="searchApp">
 
-        <div id="app-container" ng-controller="PlaceListController">
-            <div id="listing">
-                <!-- TODO: create the listing -->
-                <!-- Use ng-repeat here -->
+        <div id="app-container" ng-controller="PlaceListController" class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- ng-repeat -->
+                    <div class="place">
+                        <div class="box" ng-repeat="row in rows">
+                            <div class="img-wrapper">
+                                <img ng-src="{{row.image_urls[0]}}" />
+                            </div>
+                            <div class="description">
+                                <div class="title">
+                                    <strong>{{row.name}}</strong><br/>
+                                    <small>{{row.location_name}}</small>
+                                </div>
+                                <div class="review">
+                                    <div ng-show="row.rating">
+                                    </div>
+                                </div>
+                                <div class="price">
+                                    <strong>
+                                        <span ng-show="row.hour_price">&euro;{{row.hour_price}}/hour</span>
+                                        <span ng-show="row.day_price">&euro;{{row.day_price}}/day</span>
+                                    </strong>
+                                </div>
+                                <div class="cap">
+                                    <span class="label label-default">
+                                        <i class="fa fa-user"></i> {{row.minimum_capacity}} - {{row.maximum_capacity}}
+                                    </span>
+                                    <span class="label label-default" ng-show="row.highway_time >= 60">
+                                        <i class="fa fa-car"></i> {{row.highway_time | toMinutes}}
+                                    </span>
+                                    <span class="label label-default" ng-show="row.bus_time >= 60">
+                                        <i class="fa fa-bus"></i> {{row.bus_time | toMinutes}}
+                                    </span>
+                                    <span class="label label-default" ng-show="row.train_time >= 60">
+                                        <i class="fa fa-train"></i> {{row.train_time | toMinutes}}
+                                    </span>
+                                </div>
+                                <div class="facilities">
+                                    <span class="label label-default" ng-repeat="facility in row.facility_icons">
+                                        <i class="{{facility.icon}}"></i> {{facility.name}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="map"></div>
+                </div>
             </div>
-            <div id="map"></div>
         </div>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
         <script src="js/searchApp.js"></script>
+        <script src="js/filters/toMinutes.js"></script>
     </body>
 </html>
