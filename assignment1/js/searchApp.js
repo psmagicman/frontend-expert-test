@@ -46,4 +46,6 @@ searchApp.controller('PlaceListController',
         });
     };
 
+    //TODO: add click functionality for the tiles. If clicked, address popover will show up over the correct marker on the map
+
 });
