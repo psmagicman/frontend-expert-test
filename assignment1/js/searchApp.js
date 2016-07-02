@@ -4,6 +4,7 @@ searchApp.controller('PlaceListController',
     function PlaceListController ($scope, $http) {
 
     // Get the data and load into scope variables
+    // TODO: make this more reusable...
     $http.get('res/amsterdam.json').then(function success(response) {
         console.log(response.data); 
         $scope.bounds = response.data.bounds;
@@ -31,6 +32,10 @@ searchApp.controller('PlaceListController',
         });
     };
 
+    $scope.markerInfos = [];
+
+    google.maps.InfoWindow.prototype.opened = false;
+
     /*
     * This method takes an input array "rows" that contain
     * data for each listing in the region and draws markers
@@ -42,10 +47,29 @@ searchApp.controller('PlaceListController',
             var marker = new google.maps.Marker({
                 map: $scope.map,
                 position: {lat: value.coordinate[0], lng: value.coordinate[1]}
-            })
+            });
+            var infoWindow = new google.maps.InfoWindow({
+                content: '<address><strong>' + value.name + '</strong><br/>' +
+                    value.address_object.address_line1 + '<br/>' +
+                    value.address_object.place + '<br/>' +
+                    value.address_object.country + '<br/></address>'
+            });
+            var markerInfo = {marker: marker, info: infoWindow};
+            $scope.markerInfos.push(markerInfo);
         });
     };
+    
+    $scope.clickTile = function (index) {
+        var currentMarker = $scope.markerInfos[index];
+        if (currentMarker.info.opened) {
+            currentMarker.info.close();
+            currentMarker.info.opened = false;
+        } else {
+            $scope.map.setCenter(currentMarker.marker.getPosition());
+            currentMarker.info.open($scope.map, currentMarker.marker);
+            currentMarker.info.opened = true;
+        }
+    };
 
-    //TODO: add click functionality for the tiles. If clicked, address popover will show up over the correct marker on the map
 
 });
