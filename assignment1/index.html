@@ -27,6 +27,10 @@
                         <div class="box" ng-repeat="row in rows" ng-click="clickTile($index)">
                             <div class="img-wrapper">
                                 <img ng-src="{{row.image_urls[0]}}" />
+                                <div class="caption price">
+                                    <div class="price-per-hour" ng-show="row.hour_price"><strong>&euro;{{row.hour_price}}/hour</strong></div>
+                                    <div class="price-per-day" ng-show="row.day_price">&euro;{{row.day_price}}/day - Price per room</div>
+                                </div>
                             </div>
                             <div class="description">
                                 <div class="title">
@@ -36,34 +40,34 @@
                                 <div class="location">
                                     <p>{{row.address_object.place}}, {{row.address_object.country}}</p>
                                 </div>
-                                <div class="review">
-                                    <div ng-show="row.rating">
+                                <div class="top-icons">
+                                    <div class="capacity">
+                                        <span class="label label-default">
+                                            <i class="fa fa-user"></i> {{row.minimum_capacity}} - {{row.maximum_capacity}}
+                                        </span>
+                                    </div>
+                                    <div class="transport">
+                                        <span class="label label-default" ng-show="row.highway_time >= 60">
+                                            <i class="fa fa-car"></i> {{row.highway_time | toMinutes}}
+                                        </span>
+                                    </div>
+                                    <div class="transport">
+                                        <span class="label label-default" ng-show="row.bus_time >= 60">
+                                            <i class="fa fa-bus"></i> {{row.bus_time | toMinutes}}
+                                        </span>
+                                    </div>
+                                    <div class="transport">
+                                        <span class="label label-default" ng-show="row.train_time >= 60">
+                                            <i class="fa fa-train"></i> {{row.train_time | toMinutes}}
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="price">
-                                    <strong>
-                                        <span ng-show="row.hour_price">&euro;{{row.hour_price}}/hour</span>
-                                        <span ng-show="row.day_price">&euro;{{row.day_price}}/day</span>
-                                    </strong>
-                                </div>
-                                <div class="cap">
-                                    <span class="label label-default">
-                                        <i class="fa fa-user"></i> {{row.minimum_capacity}} - {{row.maximum_capacity}}
-                                    </span>
-                                    <span class="label label-default" ng-show="row.highway_time >= 60">
-                                        <i class="fa fa-car"></i> {{row.highway_time | toMinutes}}
-                                    </span>
-                                    <span class="label label-default" ng-show="row.bus_time >= 60">
-                                        <i class="fa fa-bus"></i> {{row.bus_time | toMinutes}}
-                                    </span>
-                                    <span class="label label-default" ng-show="row.train_time >= 60">
-                                        <i class="fa fa-train"></i> {{row.train_time | toMinutes}}
-                                    </span>
-                                </div>
                                 <div class="facilities">
-                                    <span class="label label-default" ng-repeat="facility in row.facility_icons">
-                                        <i class="{{facility.icon}}"></i> {{facility.name}}
-                                    </span>
+                                    <div class="facility" ng-repeat="facility in row.facility_icons">
+                                        <span class="label label-default">
+                                            <i class="{{facility.icon}}"></i> {{facility.name}}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
